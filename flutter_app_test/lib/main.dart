@@ -43,6 +43,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  ScrollController _scrollController = new ScrollController();
+
   @override
   Widget build(BuildContext context) {
     final key = new GlobalKey<ScaffoldState>();
@@ -62,30 +64,48 @@ class _MyHomePageState extends State<MyHomePage> {
       body: new Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: new Column(
-          // Column is also layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug paint" (press "p" in the console where you ran
-          // "flutter run", or select "Toggle Debug Paint" from the Flutter tool
-          // window in IntelliJ) to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+        child: new ListView.builder(
+          itemCount: 200,
+          controller: _scrollController,
+          itemBuilder: (context, index) {
+            final count = index + 1;
 
-            new Text(
-              'Hallo Tobi hier könnte deine Werbung stehen.',
-            ),
-
-          ],
+            return new ListTile(
+              leading: new CircleAvatar(
+                child: new Text("$count"),
+                backgroundColor: Colors.lightBlueAccent,
+              ),
+              title: new Text("Dummy content $count"),
+              subtitle: new Text("This is the dummy content $count"),
+            );
+          },
         ),
       ),
+
+//        new Column(
+//          // Column is also layout widget. It takes a list of children and
+//          // arranges them vertically. By default, it sizes itself to fit its
+//          // children horizontally, and tries to be as tall as its parent.
+//          //
+//          // Invoke "debug paint" (press "p" in the console where you ran
+//          // "flutter run", or select "Toggle Debug Paint" from the Flutter tool
+//          // window in IntelliJ) to see the wireframe for each widget.
+//          //
+//          // Column has various properties to control how it sizes itself and
+//          // how it positions its children. Here we use mainAxisAlignment to
+//          // center the children vertically; the main axis here is the vertical
+//          // axis because Columns are vertical (the cross axis would be
+//          // horizontal).
+//          mainAxisAlignment: MainAxisAlignment.center,
+//          children: <Widget>[
+//
+//            new Text(
+//              'Hallo Tobi hier könnte deine Werbung stehen.',
+//            ),
+//
+//          ],
+//        ),
+//      ),
 
       drawer: new Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
@@ -98,7 +118,10 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
 
             new DrawerHeader(
-              child: new Text('Drawer Header'),
+              child: new Text(
+                'Drawer Header',
+                style: new TextStyle(fontSize: 20.0),
+              ),
               decoration: new BoxDecoration(
                 color: Colors.blue,
               ),
@@ -135,12 +158,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
+          _scrollController.animateTo(0.0, duration: const Duration(milliseconds: 1000), curve: Curves.easeOut);
           key.currentState.showSnackBar(new SnackBar(
-            content: new Text("Test Message"),
+            content: new Text("floatingActionButton clicked"),
           ));
         },
         tooltip: 'Increment',
-        child: new Icon(Icons.add),
+        child: new Icon(Icons.arrow_upward),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
