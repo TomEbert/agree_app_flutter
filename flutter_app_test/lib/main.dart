@@ -45,6 +45,21 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   ScrollController _scrollController = new ScrollController();
 
+  final items = ["Impact Map",
+  "Refinement Meeting",
+  "Agile Coach",
+  "Daily Standup Meeting",
+  "Product Backlog",
+  "Review Meeting",
+  "Product Owner",
+  "Evaluation and Testing",
+  "Story Map",
+  "User Story",
+  "Definement of Ready and Definition of Done",
+  "Prototyp",
+  "Kanban Board",
+  "Minimum Viable Product"];
+
   @override
   Widget build(BuildContext context) {
     final key = new GlobalKey<ScaffoldState>();
@@ -64,8 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: new Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
+
         child: new ListView.builder(
-          itemCount: 200,
+          itemCount: items.length,
           controller: _scrollController,
           itemBuilder: (context, index) {
             final count = index + 1;
@@ -75,8 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: new Text("$count"),
                 backgroundColor: Colors.lightBlueAccent,
               ),
-              title: new Text("Dummy content $count"),
-              subtitle: new Text("This is the dummy content $count"),
+              title: new Text(items[index]),
             );
           },
         ),
@@ -128,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             new ListTile(
-              title: new Text('Item 1'),
+              title: new Text('Agile RE patterns'),
               onTap: () {
                 // Update the state of the app
                 // ...
@@ -141,7 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             new ListTile(
-              title: new Text('Item 2'),
+              title: new Text('Contact'),
               onTap: () {
                 // Update the state of the app
                 // ...
@@ -158,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
-          _scrollController.animateTo(0.0, duration: const Duration(milliseconds: 1000), curve: Curves.easeOut);
+          _scrollController.animateTo(0.0, duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
           key.currentState.showSnackBar(new SnackBar(
             content: new Text("floatingActionButton clicked"),
           ));
